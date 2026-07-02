@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: textutils
+  name: three-tier
   namespace: recreate-namespace
 spec:
   replicas: 2 
@@ -9,15 +9,15 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: textutils
+      app: three-tier
   template:
     metadata:
       labels:
-        app: textutils
+        app: three-tier
     spec:   
       containers:
-      - name: textutils
-        image: omsantoshharsule/textutils-newdeploy:latest
+      - name: three-tier
+        image: vaishnavi639/three-tier:latest
         ports:
         - containerPort: 5000
         resources:

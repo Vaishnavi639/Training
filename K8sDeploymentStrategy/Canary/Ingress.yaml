@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: textutils-ingress
+  name: three-tier-ingress
   namespace: canary-namespace
 spec:
   ingressClassName: nginx
@@ -12,6 +12,6 @@ spec:
          pathType: Prefix
          backend:
            service:
-             name: textutils-service
+             name: three-tier-service
              port:
                number: 80

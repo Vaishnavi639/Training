@@ -2,8 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: textutils
-  name: textutils                       
+    app: three-tier
+  name: three-tier                      
   namespace: rolling-namespace
 spec:                               
   replicas: 2 
@@ -14,15 +14,15 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: textutils
+      app: three-tier
   template:
     metadata:
       labels:
-        app: textutils
+        app: three-tier
     spec:   
       containers:
-      - name: textutils
-        image: omsantoshharsule/textutils:latest
+      - name: three-tier
+        image: vaishnavi639/three-tier:latest
         ports:
         - containerPort: 5000
         resources:

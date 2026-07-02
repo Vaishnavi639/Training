@@ -2,22 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: textutils-green
-  name: textutils-green
+    app: threetier-green
+  name: threetier-green
   namespace: bluegreen-namespace
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: textutils-green
+      app: threetier-green
   template:
     metadata:
       labels:
-        app: textutils-green
+        app: threetier-green
     spec:
       containers:
-      - name: textutils-green
-        image: omsantoshharsule/textutils-newdeploy:latest
+      - name: threetier-green
+        image: vaishnavi639/three-tier-newdeploy:latest
         ports:
         - containerPort: 5000
         resources:
@@ -31,11 +31,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: textutils-service
+  name: threetier-service
   namespace: bluegreen-namespace
 spec:
   selector:
-    app: textutils-green
+    app: threetier-green
   type: NodePort
   ports:
   - port: 5001

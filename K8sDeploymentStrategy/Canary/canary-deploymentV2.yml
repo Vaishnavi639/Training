@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: textutils-v2
+  name: three-tier-v2
   namespace: canary-namespace
   labels:
-    app: textutils
+    app: three-tier
     version: v2
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: textutils
+      app: three-tier
       version: v2
   template:
     metadata:
       labels:
-        app: textutils
+        app: three-tier
         version: v2
     spec:
       containers:
-      - name: textutils
-        image: omsantoshharsule/textutils-newdeploy:latest
+      - name: three-tier
+        image: vaishnavi639/three-tier:latest
         ports:
         - containerPort: 5000
         resources:
