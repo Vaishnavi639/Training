@@ -1,0 +1,6 @@
+color=input("Enter a color: ")
+color_plural=input("Enter plural color: ")
+celeb=input("Enter celeb: ")
+print("Roses are ",color)
+print(color_plural," are blue")
+print("I love ",celeb)

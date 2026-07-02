@@ -1,0 +1,54 @@
+version: "3.2"
+services:
+  mysql:
+    container_name: "mysql"
+    ports: 
+      - "3306:3306"
+    image: "mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: two-tier
+    networks: 
+      - two-tier
+    volumes:
+      - mysql-data:/home/ubuntu/volumes/two-tier
+    restart: always
+    healthcheck: 
+      test: ["CMD", "mysqladmin", "ping","-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+
+  flask:
+    build:
+      context: .
+    container_name: "two-tier-backend"
+    ports: 
+      - "5000:5000"
+    image: "flask-app:latest"
+    environment:
+      MYSQL_SERVER: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: two-tier
+    networks: 
+      - two-tier
+    depends_on:
+      - mysql
+    restart: always
+    healthcheck: 
+      test: ["CMD-SHELL", "http://localhost:5000/health || exit=1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    
+
+
+volumes:
+  mysql-data:
+
+networks: 
+  two-tier:
