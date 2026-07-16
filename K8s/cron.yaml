@@ -1,0 +1,45 @@
+kind: CronJob
+apiVersion: batch/v1
+metadata:
+  name: db-backup
+  namespace: training-task
+
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: backup-task
+          labels:
+            app: backup-app
+        spec:
+          containers:
+            - name: backup-container
+              image: busybox
+              command:
+              - sh
+              - -c
+              - >
+                echo "backup started";
+                mkdir -p /backup_storage &&
+                mkdir -p /data &&
+                echo "Hello" > /data/file1.txt &&
+                echo "Backup Test" > /data/file2.txt &&
+                cp -r /data/. /backup_storage/ &&
+                echo "backup completed";
+              volumeMounts:
+                - name: data-volume
+                  mountPath: /data
+                - name: backup-volume
+                  mountPath: /backup_storage
+          restartPolicy: OnFailure
+          volumes:
+            - name: data-volume
+              hostPath:
+                path: /data
+                type: DirectoryOrCreate
+            - name: backup-volume
+              hostPath:
+                path: /backup_storage
+                type: DirectoryOrCreate
