@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata: 
+  name: route-service
+  namespace: training-task
+spec:
+  selector: 
+    app: cron
+  port: 
+

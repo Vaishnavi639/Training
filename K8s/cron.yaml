@@ -5,6 +5,7 @@ metadata:
   namespace: training-task
 
 spec:
+  label: cron
   schedule: "*/1 * * * *"
   jobTemplate:
     spec:

@@ -1,0 +1,14 @@
+kind: Persistenr
+apiVersion: v1
+metadata:
+  name: PersistentV
+  labels:
+    -app: local
+spec:
+  capacity:
+    storage: 1Gi
+    accessModes: 
+      - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: local-volume
+    hostPath: /mnt/data
